@@ -5,7 +5,7 @@
 <h2 align="center">A markdown splitter tool for slicing coderplex learn guides to small markdown files based on custom identifier
 </h2>
 
-[![NPM](https://nodei.co/npm/cleave-markdown.png?mini=true)](https://nodei.co/npm/cleave-markdown/) [![npm version](https://badge.fury.io/js/cleave-markdown.svg)](https://badge.fury.io/js/cleave-markdown)
+[![NPM](https://nodei.co/npm/cleave-markdown.png?mini=true)](https://nodei.co/npm/cleave-markdown/) [![npm version](https://badge.fury.io/js/cleave-markdown.svg)](https://badge.fury.io/js/cleave-markdown) [![Travis](https://travis-ci.org/M-ZubairAhmed/cleave-md.svg?branch=master)](https://travis-ci.org/M-ZubairAhmed/cleave-md.svg?branch=master)
 
 ### Installation
 
