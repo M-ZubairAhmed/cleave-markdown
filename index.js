@@ -2,8 +2,7 @@ const program = require('commander');
 const colors = require('colors');
 const path = require('path');
 const LineByLineReader = require('line-by-line');
-const fsextra = require('fs-extra');
-const norfs = require('nor-fs');
+const fsjetpack = require('fs-jetpack');
 
 const startTime = new Date();
 let endTime = '';
@@ -57,31 +56,25 @@ if (isVerboseMode) {
 }
 lineReader.on('line', line => {
   if (line.split(' ')[0] === '#') {
-    const unitName = line
+    currentUnit = line
       .slice(2)
       .replace(/ /g, '-')
       .toLowerCase();
-    if (isVerboseMode) {
-      console.log(unitName.unitColor);
-    }
-
-    currentUnit = unitName;
     currentChapter = '';
     currentFolderDir = './' + guideName + '/' + currentUnit;
     currentFileDir = '';
+    if (isVerboseMode) {
+      console.log(currentUnit.unitColor);
+    }
   } else if (line.split(' ')[0] === '##') {
-    const chapterName = line
+    currentChapter = line
       .slice(3)
       .replace(/ /g, '-')
       .toLowerCase();
+    currentFileDir = currentFolderDir + '/' + currentChapter + '.md';
     if (isVerboseMode) {
-      console.log('  ', chapterName.chapterColor);
+      console.log('  ', currentChapter.chapterColor);
     }
-    currentChapter = chapterName;
-    currentFileDir = currentFolderDir + '/' + chapterName + '.md';
-
-    fsextra.ensureFileSync(currentFileDir);
-    norfs.sync.chmod(currentFileDir, '744');
   } else if (currentFolderDir !== '' && currentFileDir !== '') {
     if (line.split(' ')[0] === '###') {
       const topicName = line
@@ -92,7 +85,7 @@ lineReader.on('line', line => {
         console.log('    ', topicName.content);
       }
     }
-    norfs.sync.appendFile(currentFileDir, line + '\n', { encoding: 'utf8' });
+    fsjetpack.append(currentFileDir, line + '\n', { mode: '744' });
   }
 });
 
