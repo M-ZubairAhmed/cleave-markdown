@@ -4,6 +4,7 @@
 <h1 align="center">Markdown Cleave</h1>
 <h2 align="center">A markdown splitter tool for slicing coderplex learn guides to small markdown files based on custom identifier
 </h2>
+[![npm](https://img.shields.io/npm/v/npm.svg)](https://www.npmjs.com/package/cleave-markdown)
 
 ### Installation
 
