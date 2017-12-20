@@ -1,7 +1,8 @@
 {
   "name": "cleave-markdown",
   "version": "1.0.0",
-  "description": "A simple tool to chunk large markdown coderplex learning guide to small files based on custom identifier",
+  "description":
+    "A simple tool to chunk large markdown coderplex learning guide to small files based on custom identifier",
   "main": "index.js",
   "scripts": {
     "start": "node ./index.js",
