@@ -3,27 +3,39 @@ const fsextra = require('fs-extra');
 const norfs = require('nor-fs');
 const colors = require('colors');
 const program = require('commander');
-
-const guideName = 'React';
-const guideLocation = './sample.md';
+const path = require('path');
 const startTime = new Date();
 let endTime = '';
 
-process.stdout.write('\x1Bc');
+program
+  .version('1.00')
+  .description(
+    'A simple tool to chunk large markdown coderplex learning guide to small files based on custom identifier',
+  )
+  .option('-d, --dir <required>', 'path to guide')
+  .parse(process.argv);
+
 colors.setTheme({
   input: 'grey',
   info: 'green',
   data: 'yellow',
   error: 'red',
 });
-program
-  .version('1.00')
-  .description('cmldssas')
-  .option('-d, --dir <path>', 'path to guide')
-  .option('-n, --name <string>', 'name of the guide')
-  .parse(process.argv);
 
-console.log(program.dir, program.name);
+process.stdout.write('\x1Bc');
+
+if (program.dir === undefined) {
+  console.log('>> Enter correct path of learn guide to split'.error);
+  throw new Error('directory name not defined');
+}
+if (path.extname(path.basename(program.dir)) !== '.md') {
+  console.log('>> Please specify only markdown files'.error);
+  throw new Error('invalid filetype');
+}
+const guideLocation = program.dir;
+const guideName = path.basename(guideLocation, '.md');
+
+console.log(program.dir, guideName);
 const helloMessage = 'Splitting ' + guideName + ' with Cleave Markdown';
 console.log(helloMessage.info);
 
