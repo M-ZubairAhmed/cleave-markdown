@@ -44,7 +44,7 @@ console.log('>> Cleave Markdown running on'.info, guideLocation.input);
 lineReader = new LineByLineReader(guideLocation);
 
 lineReader.on('error', err => {
-  console.log(err.error);
+  throw new Error(err);
 });
 
 let currentUnit = '',
