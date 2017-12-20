@@ -1,10 +1,10 @@
 {
   "name": "cleave-markdown",
   "version": "1.0.0",
-  "description": "A node cli tool to cleave markdown files",
+  "description":
+    "A simple tool to chunk large markdown coderplex learning guide to small files based on custom identifier",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./index.js",
     "start-hot": "nodemon npm start"
   },

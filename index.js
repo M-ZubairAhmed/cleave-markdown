@@ -1,9 +1,10 @@
+const program = require('commander');
+const colors = require('colors');
+const path = require('path');
 const LineByLineReader = require('line-by-line');
 const fsextra = require('fs-extra');
 const norfs = require('nor-fs');
-const colors = require('colors');
-const program = require('commander');
-const path = require('path');
+
 const startTime = new Date();
 let endTime = '';
 
@@ -13,13 +14,17 @@ program
     'A simple tool to chunk large markdown coderplex learning guide to small files based on custom identifier',
   )
   .option('-d, --dir <required>', 'path to guide')
+  .option('-b, --verbose', 'show generated folder structure')
   .parse(process.argv);
 
 colors.setTheme({
   input: 'grey',
-  info: 'green',
-  data: 'yellow',
+  info: ['green', 'bold'],
+  unitColor: 'cyan',
+  chapterColor: 'magenta',
+  content: 'blue',
   error: 'red',
+  infoBack: ['white', 'bold', 'bgGreen'],
 });
 
 process.stdout.write('\x1Bc');
@@ -34,34 +39,31 @@ if (path.extname(path.basename(program.dir)) !== '.md') {
 }
 const guideLocation = program.dir;
 const guideName = path.basename(guideLocation, '.md');
+const isVerboseMode = program.verbose;
+console.log('>> Cleave Markdown running on'.info, guideLocation.input);
 
-console.log(program.dir, guideName);
-const helloMessage = 'Splitting ' + guideName + ' with Cleave Markdown';
-console.log(helloMessage.info);
+lineReader = new LineByLineReader(guideLocation);
 
-lr = new LineByLineReader(guideLocation);
-
-lr.on('error', err => {
+lineReader.on('error', err => {
   console.log(err.error);
 });
 
-console.log(
-  '----------------------------------------------------------------------\n'
-    .info,
-);
-
 let currentUnit = '',
   currentChapter = '',
-  currentTopic = '',
   currentFolderDir = '',
   currentFileDir = '';
-lr.on('line', line => {
+if (isVerboseMode) {
+  console.log('>> Folder structure is below\n'.info);
+}
+lineReader.on('line', line => {
   if (line.split(' ')[0] === '#') {
     const unitName = line
       .slice(2)
       .replace(/ /g, '-')
       .toLowerCase();
-    console.log('|_'.data, unitName.data);
+    if (isVerboseMode) {
+      console.log(unitName.unitColor);
+    }
 
     currentUnit = unitName;
     currentChapter = '';
@@ -72,8 +74,9 @@ lr.on('line', line => {
       .slice(3)
       .replace(/ /g, '-')
       .toLowerCase();
-    console.log('  |_'.data + chapterName.data);
-
+    if (isVerboseMode) {
+      console.log('  ', chapterName.chapterColor);
+    }
     currentChapter = chapterName;
     currentFileDir = currentFolderDir + '/' + chapterName + '.md';
 
@@ -85,19 +88,23 @@ lr.on('line', line => {
         .slice(4)
         .replace(/ /g, '-')
         .toLowerCase();
-      console.log('    |_'.data, topicName.data);
+      if (isVerboseMode) {
+        console.log('    ', topicName.content);
+      }
     }
     norfs.sync.appendFile(currentFileDir, line + '\n', { encoding: 'utf8' });
   }
 });
 
-lr.on('end', () => {
+lineReader.on('end', () => {
   endTime = new Date();
+  const completedTime = `${Math.abs(
+    endTime.getTime() - startTime.getTime(),
+  )}ms`;
   console.log(
-    '\n----------------------------------------------------------------------'
-      .info,
+    '\nSplitting of'.info,
+    guideName.input,
+    'done in'.info,
+    completedTime.infoBack,
   );
-  const completedTime = Math.abs(endTime.getTime() - startTime.getTime());
-  const finalMessage = `Splitting of ${guideName} done in ${completedTime}ms`;
-  console.log(finalMessage.info);
 });
