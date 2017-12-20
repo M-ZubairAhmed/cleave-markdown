@@ -1,0 +1,31 @@
+{
+  "name": "cleave-markdown",
+  "version": "1.0.0",
+  "description": "A node cli tool to cleave markdown files",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./index.js",
+    "start-hot": "nodemon npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/M-ZubairAhmed/cleave-md.git"
+  },
+  "author": "M-ZubairAhmed",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/M-ZubairAhmed/cleave-md/issues"
+  },
+  "homepage": "https://github.com/M-ZubairAhmed/cleave-md#readme",
+  "dependencies": {
+    "colors": "^1.1.2",
+    "commander": "^2.12.2",
+    "fs-extra": "^5.0.0",
+    "line-by-line": "^0.1.5",
+    "nor-fs": "^1.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.13.3"
+  }
+}
