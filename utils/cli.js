@@ -7,7 +7,7 @@ program
   .description(
     'A simple tool to chunk large markdown coderplex learning guide to small files based on custom identifier',
   )
-  .option('-d, --dir <required>', 'path to guide')
+  .option('-f, --file <required>', 'path to guide')
   .option('-b, --verbose', 'show generated folder structure')
   .parse(process.argv);
 
@@ -21,7 +21,7 @@ colors.setTheme({
   infoBack: ['white', 'bold', 'bgGreen'],
 });
 
-module.exports.filepath = program.dir;
+module.exports.filepath = program.file;
 
 module.exports.isVerbose = program.verbose;
 
