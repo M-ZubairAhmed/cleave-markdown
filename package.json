@@ -1,6 +1,6 @@
 {
   "name": "cleave-markdown",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "A tool to chunk large markdown coderplex learning guide to small files based on custom identifier",
   "main": "index.js",
   "scripts": {
