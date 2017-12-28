@@ -31,7 +31,6 @@ module.exports.checkValidPath = path => {
 
 module.exports.checkValidFileType = guideLocation => {
   if (path.extname(path.basename(guideLocation)) !== '.md') {
-    console.log('>> Please specify only markdown files'.error);
-    throw new Error('invalid filetype');
+    throw new Error('>> Please specify only markdown files');
   }
 };
